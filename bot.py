@@ -9,7 +9,7 @@ bot = telegram.Bot(token=TOKEN)
 app = Flask(__name__)
 
 # مسیر وب‌هوک
-@app.route(f"/{TOKEN}", methods=["POST"])
+@app.route(f"7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc", methods=["POST"])
 def webhook():
     data = request.get_json()
 
