@@ -5,7 +5,7 @@ from telegram.ext import CommandHandler, ApplicationBuilder
 TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 
 # لینک فایل HTML (فایل باید روی هاست یا سرور آپلود شده باشه)
-WEB_APP_URL = "https://omid-gg.github.io/Myserya-game/index.html"  # لینک فایل HTML
+WEB_APP_URL = "https://omid-gg.github.io/Mysterya-game/index.html"  # لینک فایل HTML
 
 # دستور /start
 async def start(update: Update, context):
