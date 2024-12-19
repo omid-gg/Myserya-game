@@ -9,7 +9,7 @@ def help_command(update, context):
     update.message.reply_text("دستورات: \n/start - شروع بازی \n/help - راهنما")
 
 # توکن رباتت رو اینجا بذار
-TOKEN = "اینجا توکن ربات خودت رو بذار"
+TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 
 # تنظیم ربات
 updater = Updater(TOKEN)
