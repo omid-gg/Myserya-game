@@ -8,6 +8,8 @@ TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 # لینک فایل HTML
 WEB_APP_URL = "https://omid-gg.github.io/Mysterya-game/index.html"  # لینک فایل HTML
 
+InlineKeyboardButton("Open Game", web_app={"url": WEB_APP_URL})
+
 # دستور /start
 def start(update, context):
     chat_id = update.effective_chat.id
