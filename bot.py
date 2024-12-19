@@ -1,25 +1,32 @@
-from telegram.ext import Updater, CommandHandler
-from telegram import InputFile
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import CommandHandler, ApplicationBuilder
 
-TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
+# توکن ربات
+TOKEN = "توکن_ربات_تو"
 
-def start(update, context):
-    update.message.reply_text("سلام! ربات تلگرام آماده است.")
+# لینک فایل HTML (فایل باید روی هاست یا سرور آپلود شده باشه)
+WEB_APP_URL = "https://yourusername.github.io/your-repo-name/index.html"  # لینک فایل HTML
+
+# دستور /start
+async def start(update: Update, context):
+    chat_id = update.effective_chat.id
+
+    # ساخت دکمه Web App
+    keyboard = [[InlineKeyboardButton("Open Game", web_app={"url": WEB_APP_URL})]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await context.bot.send_message(
+        chat_id=chat_id,
+        text="Welcome to Mysterya Game! Click the button below to start:",
+        reply_markup=reply_markup
+    )
 
 if __name__ == "__main__":
-    updater = Updater(TOKEN, use_context=True)
+    # ساخت اپلیکیشن ربات
+    application = ApplicationBuilder().token(TOKEN).build()
 
     # اضافه کردن دستور /start
-    updater.dispatcher.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("start", start))
 
-    # شروع ربات
-    updater.start_polling()
-    updater.idle()
-
-
-def send_html(update, context):
-    chat_id = update.effective_chat.id
-    with open("index.html", "rb") as file:
-        context.bot.send_document(chat_id=chat_id, document=InputFile(file), filename="Mysterya_Game.html")
-
-dispatcher.add_handler(CommandHandler("gethtml", send_html))
+    # اجرای ربات
+    application.run_polling()
