@@ -2,7 +2,7 @@ from flask import Flask, request
 import telegram
 
 # توکن ربات تلگرام
-TOKEN = "7018703733:AAGs8-mWdUbkh2hqruxwwxtdcBRYPBUNoGg"
+TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 bot = telegram.Bot(token=TOKEN)
 
 # اپلیکیشن Flask
