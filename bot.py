@@ -6,7 +6,7 @@ from uuid import uuid4
 TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 
 # لینک وب اپ
-WEB_APP_URL = "https://mysterya-game.vercel.app/"
+WEB_APP_URL = "https://mysterya-game.vercel.app"
 
 # دستور /start
 async def start(update: Update, context: CallbackContext) -> None:
