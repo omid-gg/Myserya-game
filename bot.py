@@ -1,4 +1,5 @@
 from telegram.ext import Updater, CommandHandler
+from telegram import InputFile
 
 TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 
@@ -14,3 +15,11 @@ if __name__ == "__main__":
     # شروع ربات
     updater.start_polling()
     updater.idle()
+
+
+def send_html(update, context):
+    chat_id = update.effective_chat.id
+    with open("index.html", "rb") as file:
+        context.bot.send_document(chat_id=chat_id, document=InputFile(file), filename="Mysterya_Game.html")
+
+dispatcher.add_handler(CommandHandler("gethtml", send_html))
