@@ -2,7 +2,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CommandHandler, ApplicationBuilder
 
 # توکن ربات
-TOKEN = "توکن_ربات_تو"
+TOKEN = "7869614206:AAFKyhtNjeb_nRM883nnrPoROScjkSNtUfc"
 
 # لینک فایل HTML (فایل باید روی هاست یا سرور آپلود شده باشه)
 WEB_APP_URL = "https://yourusername.github.io/your-repo-name/index.html"  # لینک فایل HTML
