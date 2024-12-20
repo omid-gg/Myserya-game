@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
 import requests
 from flask import Flask, jsonify
-import unicorn
+import uvicorn
 from your_flask_app import app
 
 load_dotenv()
@@ -51,4 +51,4 @@ def start_game():
 # راه‌اندازی سرور Flask
 if __name__ == '__main__':
     main()
-    unicorn.run(app,host='0.0.0.0',port='5000')
+    uvicorn.run(app,host='0.0.0.0',port='5000')
