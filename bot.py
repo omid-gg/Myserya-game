@@ -5,6 +5,8 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
 import requests
 from flask import Flask, jsonify
+import unicorn
+from your_flask_app import app
 
 load_dotenv()
 
