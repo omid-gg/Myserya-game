@@ -6,7 +6,7 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 import requests
 from flask import Flask, jsonify
 import uvicorn
-from bot import app
+from bot import app  # اصلاح شده
 
 load_dotenv()
 
@@ -22,7 +22,9 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 def play(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("بازی شروع شد! آماده مبارزه هستید.")
+    update.message.reply_text(
+        "بازی شروع شد! آماده مبارزه هستید."
+    )
 
 def main():
     updater = Updater(TELEGRAM_API_TOKEN)
@@ -34,13 +36,14 @@ def main():
     updater.start_polling()
     updater.idle()
 
-
+# راه‌اندازی اپلیکیشن Flask
 app = Flask(__name__)
 
 @app.route('/start_game', methods=['POST'])
 def start_game():
+    chat_id = os.getenv("CHAT_ID")  # بهتره chat_id رو از فایل .env بگیریم
     bot = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage', params={
-        'chat_id': 'your_chat_id_here',
+        'chat_id': chat_id,  # استفاده از chat_id داینامیک
         'text': 'بازی شروع شد! مبارزات آغاز می‌شود.'
     })
     if bot.status_code == 200:
@@ -48,7 +51,8 @@ def start_game():
     else:
         return jsonify({"status": "error", "message": "Failed to start game"}), 400
 
-# راه‌اندازی سرور Flask
 if __name__ == '__main__':
+    # اول راه‌اندازی ربات تلگرام
     main()
-    uvicorn.run(app,host='0.0.0.0',port='5000')
+    # سپس راه‌اندازی سرور Flask
+    uvicorn.run(app, host='0.0.0.0', port=5000)
