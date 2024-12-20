@@ -1,0 +1,6 @@
+python-telegram-bot==20.3
+aiohttp==3.8.5
+requests==2.31.0
+flask==3.0.0
+python-dotenv==1.0.0
+schedule==1.2.0
