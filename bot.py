@@ -8,7 +8,7 @@ from flask import Flask, jsonify
 import uvicorn
 from bot import app  # اصلاح شده
 
-load_dotenv()
+load_dotenv('token.env')
 
 TELEGRAM_API_TOKEN = os.getenv("TELEGRAM_API_TOKEN")
 
