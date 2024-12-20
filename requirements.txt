@@ -1,4 +1,0 @@
-pip install flask
-python-telegram-bot
-python-telegram-bot==20.3
-python bot.py
