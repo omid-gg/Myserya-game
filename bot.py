@@ -6,7 +6,7 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 import requests
 from flask import Flask, jsonify
 import uvicorn
-from your_flask_app import app
+from bot.py import app
 
 load_dotenv()
 
