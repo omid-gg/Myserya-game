@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .game-button {
     padding: 10px 20px;
     font-size: 16px;
@@ -15,6 +16,7 @@ body {
     border: none;
     border-radius: 5px;
 }
+
 .game-button:hover {
     background-color: #45a049;
 }
