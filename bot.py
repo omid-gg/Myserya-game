@@ -1,45 +1,61 @@
 import os
 import logging
+from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
+from flask import Flask, request
 import requests
-from flask import Flask, jsonify
 
 load_dotenv()
 
+# دریافت توکن از فایل .env
 TELEGRAM_API_TOKEN = os.getenv("TELEGRAM_API_TOKEN")
 
+app = Flask(__name__)
+
+# تنظیمات لاگینگ
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # دستور استارت
 def start(update: Update, context: CallbackContext) -> None:
-    chat_id = update.effective_chat.id  # دریافت چت آیدی از پیام
     update.message.reply_text(
         f"سلام {update.effective_user.first_name}! خوش اومدی. آماده بازی هستی؟"
     )
 
+# دستور بازی
 def play(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("بازی شروع شد! موفق باشی.")
 
-app = Flask(__name__)
+# ثبت دستورات ربات
+def set_up_dispatcher(dispatcher):
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("play", play))
 
-@app.route('/start_game', methods=['POST'])
-def start_game():
-  
-    updater = Updater(TELEGRAM_API_TOKEN)
-    dispatcher = updater.dispatcher
-    for user in dispatcher.chat_data.keys():
-        chat_id = user 
-        bot = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/sendMessage', params={
-            'chat_id': chat_id, 
-            'text': 'بازی شروع شد! مبارزات آغاز می‌شود.'
-        })
-        if bot.status_code != 200:
-            return jsonify({"status": "error", "message": "Failed to start game"}), 400
-    return jsonify({"status": "success", "message": "Game started!"})
+# ایجاد Webhook برای دریافت پیام‌ها
+@app.route(f'/{TELEGRAM_API_TOKEN}', methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = Update.de_json(json_str, bot)
+    dispatcher.process_update(update)
+    return 'ok'
 
+# راه‌اندازی Webhook در تلگرام
+def set_webhook():
+    url = f"https://yourdomain.com/{TELEGRAM_API_TOKEN}"  # باید دامنه و مسیر خود را قرار دهید
+    set_url = f"https://api.telegram.org/bot{TELEGRAM_API_TOKEN}/setWebhook?url={url}"
+    response = requests.get(set_url)
+    if response.status_code == 200:
+        logger.info("Webhook set successfully!")
+    else:
+        logger.error(f"Failed to set webhook: {response.status_code}")
+
+# راه‌اندازی اپلیکیشن Flask
 if __name__ == '__main__':
-    # تنظیمات برای اجرا در حالت تولید
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    # تنظیمات Webhook
+    bot = Updater(TELEGRAM_API_TOKEN).bot
+    dispatcher = bot.dispatcher
+    set_up_dispatcher(dispatcher)
+    set_webhook()  # تنظیم Webhook
+    app.run(host='0.0.0.0', port=5000, debug=True)  # اجرای سرور Flask
